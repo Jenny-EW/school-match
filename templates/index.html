@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>QS名校性格匹配测试</title>
+    <style>
+        body {
+            font-family: Arial, 微软雅黑;
+            max-width: 900px;
+            margin: 30px auto;
+            padding: 0 20px;
+            background-color: #f9f9f9;
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .question-card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        .question-card p {
+            font-size: 16px;
+            color: #34495e;
+            margin: 0 0 15px 0;
+            font-weight: 500;
+        }
+        select {
+            width: 100%;
+            padding: 10px;
+            font-size: 14px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            color: #555;
+            background-color: #fff;
+        }
+        .submit-btn {
+            display: block;
+            width: 200px;
+            height: 45px;
+            line-height: 45px;
+            text-align: center;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 40px auto;
+            transition: background-color 0.3s;
+        }
+        .submit-btn:hover {
+            background-color: #2980b9;
+        }
+    </style>
+</head>
+<body>
+    <h1>QS世界百强名校性格匹配测试</h1>
+    <form method="POST" action="/submit">
+        {% for q in questions %}
+        <div class="question-card">
+            <p>{{ loop.index }}. {{ q.content }}</p>
+            <select name="{{ q.id }}" required>
+                <option value="">请选择你的答案</option>
+                {% for opt in q.options %}
+                <option value="{{ ','.join(opt.scores) }}">{{ opt.content }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        {% endfor %}
+        <button type="submit" class="submit-btn">提交测试，查看匹配结果</button>
+    </form>
+</body>
+</html>

@@ -242,4 +242,6 @@ if __name__ == '__main__':
     if os.path.exists('school_match.db'):
         os.remove('school_match.db')
     init_db()
-    app.run(host='0.0.0.0', port=5001, debug=True)
+    # 从环境变量读取端口，Render 会自动提供这个值
+    port = int(os.environ.get('PORT', 5001))
+    app.run(host='0.0.0.0', port=port, debug=True)
